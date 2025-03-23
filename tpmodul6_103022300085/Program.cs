@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 public class SayaTubeVideo
 {
@@ -7,7 +8,10 @@ public class SayaTubeVideo
     private int playCount;
 
     public SayaTubeVideo(string title)
-    { 
+    {
+        Debug.Assert(title != null, "Judul video tidak boleh null");
+        Debug.Assert(title.Length <= 100, "Judul video tidak boleh lebih dari 100 karakter");
+
         Random random = new Random();
         this.id = random.Next(10000, 100000);
 
@@ -17,6 +21,7 @@ public class SayaTubeVideo
 
     public void IncreasePlayCount(int count)
     {
+        Debug.Assert(count <= 10000000, "Penambahan play count tidak boleh lebih dari 10.000.000");
         this.playCount += count;
     }
 
@@ -31,12 +36,15 @@ public class SayaTubeVideo
     {
 
         SayaTubeVideo video = new SayaTubeVideo("Devon Arya Daniswara");
-
         video.PrintVideoDetails();
 
         video.IncreasePlayCount(10);
-
         Console.WriteLine("\n");
         video.PrintVideoDetails();
+
+        video.IncreasePlayCount(1000000000);
+        Console.WriteLine("\n");
+        video.PrintVideoDetails();
+
     }
 }
